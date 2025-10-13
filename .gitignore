@@ -1,0 +1,19 @@
+# dependencies
+node_modules/
+
+# environment variables
+.env
+.env.local
+.env*.local
+
+# production
+dist/
+build/
+
+# misc
+.DS_Store
+*.log
+.vscode/
+
+# Supabase
+.supabase/
