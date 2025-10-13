@@ -145,27 +145,50 @@ The platform includes these tables:
 
 ```
 earthregen/
-├── public/                 # Static assets
+├── public/
+│   ├── images/            # Project images (logos, etc.)
+│   └── vite.svg          # Vite logo
+│
 ├── src/
-│   ├── components/        # Reusable UI components
-│   │   ├── common/       # Buttons, cards, loaders
-│   │   ├── layout/       # Navigation, footer
-│   │   └── dashboard/    # Dashboard-specific components
-│   ├── pages/            # Application pages
-│   ├── lib/              # Supabase client & API helpers
+│   ├── assets/           # Static assets (images, fonts)
+│   ├── components/       # Reusable React components
+│   │   ├── common/      # Shared UI components
+│   │   ├── layout/      # Navigation, layouts
+│   │   └── dashboard/   # Dashboard components
 │   ├── hooks/            # Custom React hooks
+│   │   ├── useAuth.js
+│   │   ├── useSoilAnalysis.js
+│   │   └── useProjects.js
+│   ├── lib/              # Utilities and helpers
+│   ├── pages/            # Application pages/routes
+│   │   ├── HomePage.jsx
+│   │   ├── DashboardPage.jsx
+│   │   └── SoilAnalyzerPage.jsx
 │   ├── utils/            # Helper functions
 │   ├── App.jsx           # Main app component
-│   └── main.jsx          # Entry point
+│   ├── App.css           # App styles
+│   ├── main.jsx          # Entry point
+│   ├── index.css         # Global styles
+│   └── supabaseClient.js # Supabase configuration
+│
 ├── supabase/
-│   ├── migrations/       # Database schema
-│   └── functions/        # Edge functions
-├── .env.local            # Environment variables (not in git)
-├── .env.example          # Environment template
-├── package.json          # Dependencies
-├── tailwind.config.js    # Tailwind configuration
-├── vite.config.js        # Vite configuration
-└── README.md             # This file
+│   ├── migrations/       # Database schema & migrations
+│   │   └── 20251011000000_initial_schema.sql
+│   └── functions/        # Edge Functions (serverless)
+│       ├── analyze-soil-with-claude/
+│       └── fetch-satellite-data/
+│
+├── dist/                 # Production build (generated)
+│   ├── assets/          # Compiled & minified files
+│   └── images/          # Optimized images
+│
+├── index.html            # HTML template
+├── package.json          # Dependencies & scripts
+├── package-lock.json     # Dependency lock file
+├── vite.config.js        # Vite bundler config
+├── tailwind.config.js    # Tailwind CSS config
+├── eslint.config.js      # Code linting rules
+└── README.md             # Project documentation
 ```
 
 ---
