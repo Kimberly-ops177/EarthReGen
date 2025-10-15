@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { SignInPage } from './pages/SignInPage';
+import { supabase } from './supabaseClient';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Leaf, Home, BarChart3, FlaskConical, Map, Wind, TrendingUp, DollarSign, Users, Info, Menu, X, Upload, MapPin, Droplets, Sun, AlertTriangle, CheckCircle, Activity, Cloud, Sprout, FileText, TrendingDown } from 'lucide-react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'; 
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-// import { supabase } from './supabaseClient';
 
 
 export default function EarthReGen() {
@@ -52,8 +53,8 @@ export default function EarthReGen() {
   const [authPassword, setAuthPassword] = useState('');
   const [authConfirmPassword, setAuthConfirmPassword] = useState('');
 
+
    // ========== CHECK FOR LOGGED-IN USER ==========
-  // This runs once when the app first loads
   useEffect(() => {
     const savedUser = localStorage.getItem('earthregen_current_user');
     if (savedUser) {
@@ -133,87 +134,62 @@ useState(() => {
 
 // Sign Up Function
 const handleSignUp = async () => {
-  // Validation (keep existing validation code)
-  
-  try {
-    // Sign up with Supabase Auth
-    const { data, error } = await supabase.auth.signUp({
-      email: authEmail,
-      password: authPassword,
-      options: {
-        data: {
-          username: authUsername
-        }
-      }
-    });
-
-    if (error) {
-      alert(`❌ Error: ${error.message}`);
-      return;
-    }
-
-    // Insert user into users table
-    const { error: insertError } = await supabase
-      .from('users')
-      .insert([
-        { 
-          id: data.user.id,
-          username: authUsername,
-          email: authEmail 
-        }
-      ]);
-
-    if (insertError) {
-      console.error('Error inserting user:', insertError);
-    }
-
-    alert(`✅ Account created! Please check ${authEmail} to verify your email.`);
-    setIsSignUp(false);
-    
-  } catch (error) {
-    console.error('Signup error:', error);
-    alert('❌ Failed to create account. Please try again.');
+  if (authUsername.length < 3) {
+    alert('Username must be at least 3 characters');
+    return;
   }
+  if (!authEmail || !authEmail.includes('@')) {
+    alert('Please enter a valid email');
+    return;
+  }
+  if (authPassword.length < 6) {
+    alert('Password must be at least 6 characters');
+    return;
+  }
+  if (authPassword !== authConfirmPassword) {
+    alert('Passwords do not match');
+    return;
+  }
+  
+  const users = JSON.parse(localStorage.getItem('earthregen_users') || '[]');
+  
+  if (users.find(u => u.email === authEmail)) {
+    alert('❌ Email already registered');
+    return;
+  }
+  
+  users.push({ username: authUsername, email: authEmail, password: authPassword });
+  localStorage.setItem('earthregen_users', JSON.stringify(users));
+  
+  alert('✅ Account created successfully!');
+  setAuthUsername('');
+  setAuthEmail('');
+  setAuthPassword('');
+  setAuthConfirmPassword('');
+  setIsSignUp(false);
+  setCurrentPage('home');
 };
 
 // Sign In Function
 const handleSignIn = async () => {
-  if (!authEmail.trim() || !authPassword) {
-    alert('Please enter your email and password');
+  if (!authEmail || !authPassword) {
+    alert('Please enter email and password');
     return;
   }
-
-  try {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: authEmail,
-      password: authPassword,
-    });
-
-    if (error) {
-      alert(`❌ ${error.message}`);
-      return;
-    }
-
-    // Get user details from users table
-    const { data: userData, error: userError } = await supabase
-      .from('users')
-      .select('username, email')
-      .eq('id', data.user.id)
-      .single();
-
-    setCurrentUser({
-      id: data.user.id,
-      username: userData?.username || 'User',
-      email: data.user.email
-    });
-
-    alert(`✅ Welcome back, ${userData?.username || 'User'}!`);
-    setCurrentPage('dashboard');
-    
-  } catch (error) {
-    console.error('Sign in error:', error);
-    alert('❌ Failed to sign in. Please try again.');
+  
+  const users = JSON.parse(localStorage.getItem('earthregen_users') || '[]');
+  const user = users.find(u => u.email === authEmail && u.password === authPassword);
+  
+  if (!user) {
+    alert('❌ Invalid login credentials');
+    return;
   }
+  
+  localStorage.setItem('earthregen_current_user', authEmail);
+  alert('✅ Signed in successfully!');
+  setAuthEmail('');
+  setAuthPassword('');
+  setCurrentPage('home');
 };
 
 // Sign Out Function
@@ -3863,148 +3839,7 @@ EarthReGen breaks down those barriers. We put satellite intelligence, instant so
     </div>
   );
 
-  const SignInPage = () => {
-  return (
-    <div className="bg-gradient-to-br from-gray-900 via-green-900 to-gray-900 min-h-screen flex items-center justify-center p-6">
-      <div className="max-w-md w-full">
-        {/* Logo */}
-        <div className="text-center mb-8">
-          <img 
-            src="/images/logo.png" 
-            alt="EarthReGen Logo" 
-            className="w-20 h-20 object-contain mx-auto mb-4 rounded-xl"
-          />
-          <h1 className="text-4xl font-bold text-white mb-2">
-            <span className="text-green-400">Earth</span>ReGen
-          </h1>
-          <p className="text-gray-400">
-            {isSignUp ? 'Create your account' : 'Sign in to your account'}
-          </p>
-        </div>
-
-        {/* Auth Form */}
-        <div className="bg-gray-800 p-8 rounded-xl shadow-2xl">
-          <div className="space-y-6">
-            {/* Username Field (Sign Up Only) */}
-            {isSignUp && (
-              <div>
-                <label className="block text-sm font-semibold text-gray-300 mb-2">
-                  Username
-                </label>
-                <input
-                  type="text"
-                  value={authUsername}
-                  onChange={(e) => setAuthUsername(e.target.value)}
-                  placeholder="johndoe"
-                  className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                  autoComplete="username"
-                />
-                <p className="text-xs text-gray-400 mt-1">At least 3 characters</p>
-              </div>
-            )}
-
-            {/* Email Field */}
-            <div>
-              <label className="block text-sm font-semibold text-gray-300 mb-2">
-                Email Address
-              </label>
-              <input
-                type="email"
-                value={authEmail}
-                onChange={(e) => setAuthEmail(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && (isSignUp ? handleSignUp() : handleSignIn())}
-                placeholder="you@example.com"
-                className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                autoComplete="email"
-              />
-            </div>
-
-            {/* Password Field */}
-            <div>
-              <label className="block text-sm font-semibold text-gray-300 mb-2">
-                Password
-              </label>
-              <input
-                type="password"
-                value={authPassword}
-                onChange={(e) => setAuthPassword(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && (isSignUp ? handleSignUp() : handleSignIn())}
-                placeholder="••••••••"
-                className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                autoComplete={isSignUp ? "new-password" : "current-password"}
-              />
-              {isSignUp && (
-                <p className="text-xs text-gray-400 mt-1">At least 6 characters</p>
-              )}
-            </div>
-
-            {/* Confirm Password Field (Sign Up Only) */}
-            {isSignUp && (
-              <div>
-                <label className="block text-sm font-semibold text-gray-300 mb-2">
-                  Confirm Password
-                </label>
-                <input
-                  type="password"
-                  value={authConfirmPassword}
-                  onChange={(e) => setAuthConfirmPassword(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && handleSignUp()}
-                  placeholder="••••••••"
-                  className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                  autoComplete="new-password"
-                />
-              </div>
-            )}
-
-            {/* Submit Button */}
-            <button
-              onClick={isSignUp ? handleSignUp : handleSignIn}
-              className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg transition"
-            >
-              {isSignUp ? 'Create Account' : 'Sign In'}
-            </button>
-
-            {/* Toggle Sign Up/Sign In */}
-            <div className="text-center">
-              <button
-                onClick={() => {
-                  setIsSignUp(!isSignUp);
-                  setAuthUsername('');
-                  setAuthEmail('');
-                  setAuthPassword('');
-                  setAuthConfirmPassword('');
-                }}
-                className="text-sm text-green-400 hover:text-green-300"
-              >
-                {isSignUp 
-                  ? 'Already have an account? Sign In' 
-                  : "Don't have an account? Sign Up"}
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Quick Access */}
-        <div className="mt-6 text-center">
-          <p className="text-sm text-gray-400 mb-3">Or continue as guest</p>
-          <button
-            onClick={() => setCurrentPage('home')}
-            className="text-sm text-blue-400 hover:text-blue-300"
-          >
-            ← Back to Home
-          </button>
-        </div>
-
-        {/* Info Notice */}
-        <div className="mt-6 bg-blue-900 bg-opacity-20 border border-blue-700 rounded-lg p-4">
-          <p className="text-sm text-blue-200 text-center">
-            <strong>Secure Storage:</strong> Your credentials are stored locally in your browser
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-};
+  
 
   const renderPage = () => {
   switch (currentPage) {
@@ -4018,7 +3853,24 @@ EarthReGen breaks down those barriers. We put satellite intelligence, instant so
     case 'kenya': return <KenyaInsightsPage />;
     case 'financial': return <FinancialPage />;
     case 'team': return <TeamPage />;
-    case 'signin': return <SignInPage key="signin-page" />;
+    case 'signin': return (
+  <SignInPage 
+    key="signin-page"
+    authUsername={authUsername}
+    setAuthUsername={setAuthUsername}
+    authEmail={authEmail}
+    setAuthEmail={setAuthEmail}
+    authPassword={authPassword}
+    setAuthPassword={setAuthPassword}
+    authConfirmPassword={authConfirmPassword}
+    setAuthConfirmPassword={setAuthConfirmPassword}
+    isSignUp={isSignUp}
+    setIsSignUp={setIsSignUp}
+    setCurrentPage={setCurrentPage}
+    handleSignIn={handleSignIn}
+    handleSignUp={handleSignUp}
+  />
+);
     case 'about': return <AboutPage />;
     default: return <HomePage />;
   }
