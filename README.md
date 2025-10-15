@@ -43,7 +43,7 @@ Land assessment and Reneration planning
 
 Maps Page
 <p align="center">
-  <img src="public/images/map.png" alt="Maps Dashboard" width="600"/>
+  <img src="public/images/Map.png" alt="Maps Dashboard" width="600"/>
 </p>
 
 Carbon Tracking
