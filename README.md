@@ -35,15 +35,15 @@ Dashboards & Insights
 
 AI Analyzer Page
 <p align="center">
-  <img src="public/images/AI_Analyzer.png" alt="AI Analyzer Dashboard" width="600"/>
+  <img src="public/images/AI-Analyzer.png" alt="AI Analyzer Dashboard" width="600"/>
 </p>
 
 Land assessment and Reneration planning
-<p align="center"> <img src="public/images/LandAssessmentandRegenPlan.png" alt="Land Assessment & Regeneration Plan" width="600"/> </p>
+<p align="center"> <img src="public/images/LandAssessmentand RegenPlan.png" alt="Land Assessment & Regeneration Plan" width="600"/> </p>
 
 Maps Page
 <p align="center">
-  <img src="public/images/maps.png" alt="Maps Dashboard" width="600"/>
+  <img src="public/images/map.png" alt="Maps Dashboard" width="600"/>
 </p>
 
 Carbon Tracking
