@@ -28,22 +28,43 @@ Homepage
 <p align="center"> <img src="public/images/homepage.png" alt="Homepage" width="600"/> <img src="public/images/homepage2.png" alt="Homepage 2" width="600"/> </p>
 
 EarthReGen Icon
-<p align="center"> <img src="public/images/EarthReGen.png" alt="EarthReGen Logo" width="400"/> </p>
+<p align="center"> <img src="public/images/logo.png" alt="EarthReGen Logo" width="400"/> </p>
 
 Dashboards & Insights
-<p align="center"> <img src="public/images/Monitoring-dashboard.png" alt="Monitoring Dashboard" width="600"/> <img src="public/images/CountyInsightsPage.png" alt="County Insights" width="600"/> <img src="public/images/CropsInsightPage.png" alt="Crops Insights" width="600"/> </p>
+<p align="center"> <img src="public/images/Monitoring-dashboard.png" alt="Monitoring Dashboard" width="600"/> </p>
 
-Financials & Carbon Tracking
-<p align="center"> <img src="public/images/Financials.png" alt="Financials" width="600"/> <img src="public/images/CarbonTracker.png" alt="Carbon Tracker" width="600"/> </p>
+AI Analyzer Page
+<p align="center">
+  <img src="public/images/AI_Analyzer.png" alt="AI Analyzer Dashboard" width="600"/>
+</p>
 
-Project Plans & Teams
-<p align="center"> <img src="public/images/LandAssessmentandRegenPlan.png" alt="Land Assessment & Regeneration Plan" width="600"/> <img src="public/images/Team.png" alt="Team Page" width="600"/> </p>
+Land assessment and Reneration planning
+<p align="center"> <img src="public/images/LandAssessmentandRegenPlan.png" alt="Land Assessment & Regeneration Plan" width="600"/> </p>
+
+Maps Page
+<p align="center">
+  <img src="public/images/maps.png" alt="Maps Dashboard" width="600"/>
+</p>
+
+Carbon Tracking
+<p align="center"> <img src="public/images/CarbonTracker.png" alt="Carbon Tracker" width="600"/> </p>
+
+Weather Page
+<p align="center"> <img src="public/images/Weather.png" alt="Weather Dashboard" width="600"/> </p>
+
+Kenya Counties and Crops Insights Page
+<p align="center"> <img src="public/images/CountyInsightsPage.png" alt="County Insights" width="600"/> <img src="public/images/CropsInsightPage.png" alt="Crops Insights" width="600"/> </p>
+
+Financial Page
+<p align="center">
+  <img src="public/images/Financials.png" alt="Financials" width="600"/> </p>
+
+Teams
+<p align="center"> <img src="public/images/Team.png" alt="Team Page" width="600"/> </p>
 
 Authentication Pages
 <p align="center"> <img src="public/images/SignIn-page.png" alt="Sign In Page" width="600"/> <img src="public/images/SignUp-page.png" alt="Sign Up Page" width="600"/> </p>
 
-Weather Page
-<p align="center"> <img src="public/images/Weather.png" alt="Weather Dashboard" width="600"/> </p>
 ---
 
 ## 🚀 Live Deployment
