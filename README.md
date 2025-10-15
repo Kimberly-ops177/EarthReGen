@@ -12,6 +12,7 @@
 
 **EarthReGen** is a comprehensive platform designed to help farmers, land managers, and environmental organizations restore and monitor degraded lands. Using AI-powered soil analysis, satellite-based vegetation monitoring (NDVI), and carbon credit tracking, EarthReGen makes land regeneration accessible, measurable, and profitable.
 
+
 ### 🎯 Key Features
 
 - 🔬 **AI Soil Analysis** - Upload soil images for instant health assessment using Claude AI
@@ -23,6 +24,26 @@
 - 🚨 **Smart Alerts** - Automated notifications for critical conditions
 - 📈 **Progress Reports** - Generate comprehensive regeneration reports
 
+Homepage
+<p align="center"> <img src="public/images/homepage.png" alt="Homepage" width="600"/> <img src="public/images/homepage2.png" alt="Homepage 2" width="600"/> </p>
+
+EarthReGen Icon
+<p align="center"> <img src="public/images/EarthReGen.png" alt="EarthReGen Logo" width="400"/> </p>
+
+Dashboards & Insights
+<p align="center"> <img src="public/images/Monitoring-dashboard.png" alt="Monitoring Dashboard" width="600"/> <img src="public/images/CountyInsightsPage.png" alt="County Insights" width="600"/> <img src="public/images/CropsInsightPage.png" alt="Crops Insights" width="600"/> </p>
+
+Financials & Carbon Tracking
+<p align="center"> <img src="public/images/Financials.png" alt="Financials" width="600"/> <img src="public/images/CarbonTracker.png" alt="Carbon Tracker" width="600"/> </p>
+
+Project Plans & Teams
+<p align="center"> <img src="public/images/LandAssessmentandRegenPlan.png" alt="Land Assessment & Regeneration Plan" width="600"/> <img src="public/images/Team.png" alt="Team Page" width="600"/> </p>
+
+Authentication Pages
+<p align="center"> <img src="public/images/SignIn-page.png" alt="Sign In Page" width="600"/> <img src="public/images/SignUp-page.png" alt="Sign Up Page" width="600"/> </p>
+
+Weather Page
+<p align="center"> <img src="public/images/Weather.png" alt="Weather Dashboard" width="600"/> </p>
 ---
 
 ## 🚀 Live Deployment
